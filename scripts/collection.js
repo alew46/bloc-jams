@@ -21,6 +21,6 @@ var collectionItemTemplate =
      collectionContainer.innerHTML = '';
  
      for (var i = 0; i < 12; i++) {
-         collectionContainer.innerHTML += collectionItemTemplate;
+         collectionContainer.innerHTML += collectionItemTemplate; 
      }
  }
