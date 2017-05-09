@@ -30,6 +30,19 @@ var albumMarconi = {
     ]
 };
 
+var albumAlex = {
+    title: 'Learning JS',
+    artist: 'Alex Lewis',
+    label: 'Bloc',
+    year: '2017',
+    albumArtUrl: 'assets/images/album_covers/bloc-logo-square-500x500-white-f85bec150478dc93d64865b33941ab6d.png',
+    songs: [
+        {title: "More Confusing Than Ruby", duration: '3:04'},
+        {title: "Still Fun Though!", duration: '2:21'},
+        {title: "Keep At It", duration: '6:66'},
+    ]
+};
+
  var createSongRow = function(songNumber, songName, songLength) {
      var template =
         '<tr class="album-view-song-item">'
@@ -63,3 +76,19 @@ var setCurrentAlbum = function(album) {
 window.onload = function() {
     setCurrentAlbum(albumPicasso);
 };
+
+// write the function
+
+// set the object, outside of other function
+var albumImageOutside = document.getElementsByClassName('album-cover-art')[0];
+
+var albumArray = [albumPicasso, albumMarconi, albumAlex];
+
+i = 0;
+
+// event onclick then function happens
+albumImageOutside.addEventListener("click", function(event) {
+  // change current album somehow
+    setCurrentAlbum(albumArray[i]);
+    i++;
+});
