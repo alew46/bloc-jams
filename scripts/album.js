@@ -88,6 +88,8 @@ var getSongItem = function(element) {
     }  
 };
 
+//
+
 var clickHandler = function(targetElement) {
 
     var songItem = getSongItem(targetElement);
