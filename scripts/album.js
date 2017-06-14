@@ -206,6 +206,22 @@ var previousSong = function() {
     $lastSongNumberCell.html(lastSongNumber);
 };
 
+var togglePlayFromPlayerBar = function() {
+    
+    $songNumberElement = getSongNumberCell(currentlyPlayingSongNumber)
+    
+    if(currentSoundFile.isPaused()) {
+        $songNumberElement.html(pauseButtonTemplate)
+        $playerBarPlayPauseButton.html(playerBarPauseButton);
+        currentSoundFile.play();
+    } else {
+        $songNumberElement.html(playButtonTemplate)
+        $playerBarPlayPauseButton.html(playerBarPlayButton);
+        currentSoundFile.pause();
+    }
+
+};
+
 var playButtonTemplate = "<a class='album-song-button'><span class='ion-play'></span></a>";
 var pauseButtonTemplate = '<a class="album-song-button"><span class="ion-pause"></span></a>';
 var playerBarPlayButton = '<span class="ion-play"></span>';
@@ -215,9 +231,13 @@ var currentAlbum = null;
 var currentlyPlayingSongNumber = null;
 var currentSongFromAlbum = null;
 var currentSoundFile = null;
+var currentVolume = 80;
 
 var $previousbutton = $('.main-controls .previous');
 var $nextButton = $('.main-controls .next');
+
+var $playerBarPlayPauseButton = $('.main-controls .play-pause');
+
 
 var updatePlayerBarSong = function() {
     var $songBarSongTitle = $( 'h2.song-name' );
@@ -271,4 +291,6 @@ $(document).ready(function() {
     
     $previousbutton.click(previousSong);
     $nextButton.click(nextSong);
+    
+    $playerBarPlayPauseButton.click(togglePlayFromPlayerBar);
 });
