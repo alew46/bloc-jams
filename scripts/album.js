@@ -44,6 +44,12 @@
 //            currentlyPlayingSongNumber = $oldSongNumber;
 //            currentSongFromAlbum = currentAlbum.songs[$oldSongNumber - 1];
             
+            var $volumeFill = $('.volume .fill');
+            var $volumeThumb = $('.volume .thumb');
+            
+            $volumeFill.width(currentVolume + '%');
+            $volumeThumb.css({left: currentVolume + '%'});
+            
             updatePlayerBarSong();
         }
          
