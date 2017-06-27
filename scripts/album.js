@@ -4,7 +4,7 @@
         '<tr class="album-view-song-item">'
       + '  <td class="song-item-number" data-song-number="' + songNumber + '">' + songNumber + '</td>'
       + '  <td class="song-item-title">' + songName + '</td>'
-      + '  <td class="song-item-duration">' + songLength + '</td>'
+      + '  <td class="song-item-duration">' + filterTimeCode(songLength) + '</td>'
       + '</tr>'
       ;
  
@@ -140,6 +140,7 @@ var updateSeekBarWhileSongPlays = function() {
            var $seekBar = $('.seek-control .seek-bar');
             
            updateSeekPercentage($seekBar, seekBarFillRatio);
+           setCurrentTimeInPlayerBar(this.getTime());
         });
     }
 };
@@ -164,7 +165,7 @@ var setupSeekBars = function() {
  
         updateSeekPercentage($(this), seekBarFillRatio);
         
-        if ($(this).parent().attr("class") == 'seek-bar')  {
+        if ($(this).parent().hasClass('seek-control'))  {
             var ratioAsTime = seekBarFillRatio * currentSoundFile.getDuration();
             seek(ratioAsTime);
         } else {
@@ -181,8 +182,8 @@ var setupSeekBars = function() {
             var seekBarFillRatio = offsetX / barWidth;
  
             updateSeekPercentage($seekBar, seekBarFillRatio);
-             
-            if ($(this).parent().attr("class") == 'seek-bar')  {
+
+            if ($seekBar.parent().hasClass('seek-control'))  {
                 var ratioAsTime = seekBarFillRatio * currentSoundFile.getDuration();
                 seek(ratioAsTime);
             } else {
@@ -284,6 +285,8 @@ var updatePlayerBarSong = function() {
   
     $songBarMobileTitle.text(currentSongFromAlbum.title + ' - ' + currentAlbum.artist);
     
+    setTotalTimeInPlayerBar(currentSongFromAlbum.duration);
+    
     $( '.main-controls .play-pause' ).html(playerBarPauseButton);
 };
 
@@ -321,6 +324,32 @@ var getSongNumberCell = function(number) {
     
     return $songNumberElement;
     
+};
+
+var setCurrentTimeInPlayerBar = function(currentTime) {
+    var $timeInBar = $('.current-time');
+    
+    $timeInBar.text(filterTimeCode(currentTime));
+};
+
+var setTotalTimeInPlayerBar = function(totalTime) {
+    var $totalTimeInBar = $('.total-time')
+    
+    $totalTimeInBar.text(filterTimeCode(totalTime))
+};
+
+var filterTimeCode = function(timeInSeconds) {
+    var timeCode = parseFloat(timeInSeconds);
+    
+    var minutes = Math.floor(timeInSeconds / 60);
+    
+    var seconds = Math.floor(timeInSeconds % 60);
+    
+    if (seconds < 10) {
+        seconds = "0" + seconds;
+    }
+    
+    return minutes + ":" + seconds;
 };
 
 
